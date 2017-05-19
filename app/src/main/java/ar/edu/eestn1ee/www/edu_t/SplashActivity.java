@@ -3,6 +3,7 @@ package ar.edu.eestn1ee.www.edu_t;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
