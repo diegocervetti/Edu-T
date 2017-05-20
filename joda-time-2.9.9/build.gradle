@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('joda-time-2.9.9.jar'))
