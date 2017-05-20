@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Edu-T.iml" filepath="$PROJECT_DIR$/Edu-T.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Edu-T.iml" filepath="$PROJECT_DIR$/Edu-T.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Edu-T.iml" filepath="$PROJECT_DIR$/Edu-T.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/joda-time-2.9.9/joda-time-2.9.9.iml" filepath="$PROJECT_DIR$/joda-time-2.9.9/joda-time-2.9.9.iml" />
     </modules>
   </component>
 </project>

@@ -1,1 +1,1 @@
-include ':app', ':joda-time-2.9.9'
+include ':app'
