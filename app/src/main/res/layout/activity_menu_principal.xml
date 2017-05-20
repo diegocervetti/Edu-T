@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Inicio Lincencia"
+            android:text="Inicio Licencia"
             android:textAlignment="center" />
     </LinearLayout>
     <!-- Calendario || Desde el + Fecha Resultado -->
@@ -136,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="Fin Lincencia"
+                android:text="Fin Licencia"
                 android:textAlignment="center"/>
         </LinearLayout>
 
