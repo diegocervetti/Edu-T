@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
-            android:text="04/11/2017"
+            android:text="01/01/2000"
             android:textAlignment="center"/>
     </LinearLayout>
 
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
-            android:text="125 días"
+            android:text="Sin Definir"
             android:textAlignment="center"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"/>
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="26sp"
-                android:text="27/03/2018"
+                android:text="Sin Definir"
                 android:textAlignment="center"/>
             <CheckBox
                 android:layout_width="wrap_content"

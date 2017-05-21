@@ -44,7 +44,11 @@ public class MenuPrincipal extends AppCompatActivity {
     private DatePicker datePicker;
     private Calendar calendar;
     //view de cantidad dias
-    private TextView cantidadDias;
+    private TextView cantidadDiasTV;
+    //Dialog
+    private Dialog dialog, dialog2;
+    //sumador dia
+    private int cantidad;
 
 
     @Override
@@ -91,8 +95,8 @@ public class MenuPrincipal extends AppCompatActivity {
         // Escuchamos los clics sobre los íconos
         botonCalendario = (ImageButton) findViewById(R.id.botonCalendario);
         calendarioTituloTV = (TextView) findViewById(R.id.calendarioTituloTV);
-        //Se crea el date picker
-        final Dialog dialog = new Dialog(MenuPrincipal.this);
+        //dialog fecha
+        dialog = new Dialog(MenuPrincipal.this);
         dialog.setContentView(R.layout.datepickerview);
         dialog.setTitle("");
 
@@ -108,30 +112,14 @@ public class MenuPrincipal extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Se trae date picker
-
-                datePicker.init(selectedYear,selectedMonth, selectedDate, new DatePicker.OnDateChangedListener() {
-
-                    @Override
-                    public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
-
-                            TextView tv = (TextView) findViewById(R.id.fechaDesdeIV);
-
-                            String stringOfDate = day + "/" + month + "/" + year;
-                            tv.setText(stringOfDate);
-                            dialog.dismiss();
-
-                        selectedDate=day;
-                        selectedMonth=month;
-                        selectedYear=year;
-                    } });
-                dialog.show();
-
-
-
-
-                //en construccion
-
+                dialogfecha();
                 desdeElLL.setVisibility(desdeElLL.VISIBLE);
+                desdeElLL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogfecha();
+                    }
+                });
                 ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarCalendarioLL.setLayoutParams(paramTemp);
@@ -141,36 +129,29 @@ public class MenuPrincipal extends AppCompatActivity {
 
         botonCantidadDias = (ImageButton) findViewById(R.id.botonCantidadDias);
         diasTituloTV = (TextView) findViewById(R.id.diasTituloTV);
+
         //Se crea un dialog para el input del numero
-        final Dialog dialog2 = new Dialog(MenuPrincipal.this);
+
+        dialog2 = new Dialog(MenuPrincipal.this);
         dialog2.setContentView(R.layout.cantidadview);
         dialog2.setTitle("");
-        cantidadDias = (TextView) dialog2.findViewById(R.id.cantidadDias);
+        cantidadDiasTV = (TextView) dialog2.findViewById(R.id.cantidadDias);
 
 
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO Preguntar a Diego como tendria que verse el input, mejorar diseño
-                dialog2.show();
-                cantidadDias.setFocusable(true);
-                cantidadDias.addTextChangedListener(new TextWatcher() {
+
+                dialogcantidad();
+                //////////////////////////////////////////////////
+                diasTV.setVisibility(diasTV.VISIBLE);
+                diasTV.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    diasTV.setText(cantidadDias.getText() + " Dias");
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
+                    public void onClick(View v) {
+                        dialogcantidad();
                     }
                 });
-                diasTV.setVisibility(diasTV.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarDiasLL.setLayoutParams(paramTemp);
@@ -196,7 +177,53 @@ public class MenuPrincipal extends AppCompatActivity {
 
     }
     ////////////////////////////////////////////////////////////////////
+    // Dialog
+    public void dialogfecha(){
+        datePicker.init(selectedYear,selectedMonth, selectedDate, new DatePicker.OnDateChangedListener() {
 
+            @Override
+            public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
+
+                TextView tv = (TextView) findViewById(R.id.fechaDesdeIV);
+
+                String stringOfDate = day + "/" + month + "/" + year;
+                tv.setText(stringOfDate);
+                dialog.dismiss();
+
+                selectedDate=day;
+                selectedMonth=month;
+                selectedYear=year;
+            } });
+        dialog.show();
+    }
+    // Dialog 2
+    public void dialogcantidad(){
+        dialog2.show();
+
+        cantidadDiasTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                diasTV.setText(cantidadDiasTV.getText() + " Dias");
+                try {
+                    cantidad = Integer.parseInt(cantidadDiasTV.getText().toString());
+                }catch(Exception ex){
+                    cantidad = 0;
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
     /////////////////////////////////////////////////
     // Menu de los tres puntos con opciones
     @Override
