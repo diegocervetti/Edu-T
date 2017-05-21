@@ -3,6 +3,8 @@ package ar.edu.eestn1ee.www.edu_t;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,8 +41,10 @@ public class MenuPrincipal extends AppCompatActivity {
     //Selected dia
     private int selectedDate,selectedMonth,selectedYear;
     //Reserva datepicker y calendar
-    DatePicker datePicker;
-    Calendar calendar;
+    private DatePicker datePicker;
+    private Calendar calendar;
+    //view de cantidad dias
+    private TextView cantidadDias;
 
 
     @Override
@@ -98,6 +102,7 @@ public class MenuPrincipal extends AppCompatActivity {
         selectedDate=calendar.get(Calendar.DAY_OF_MONTH);
         selectedMonth=calendar.get(Calendar.MONTH);
         selectedYear=calendar.get(Calendar.YEAR);
+
         botonCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,10 +141,35 @@ public class MenuPrincipal extends AppCompatActivity {
 
         botonCantidadDias = (ImageButton) findViewById(R.id.botonCantidadDias);
         diasTituloTV = (TextView) findViewById(R.id.diasTituloTV);
+        //Se crea un dialog para el input del numero
+        final Dialog dialog2 = new Dialog(MenuPrincipal.this);
+        dialog2.setContentView(R.layout.cantidadview);
+        dialog2.setTitle("");
+        cantidadDias = (TextView) dialog2.findViewById(R.id.cantidadDias);
+
+
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO traer cantidad de dias
+                //TODO Preguntar a Diego como tendria que verse el input, mejorar diseño
+                dialog2.show();
+                cantidadDias.setFocusable(true);
+                cantidadDias.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    diasTV.setText(cantidadDias.getText() + " Dias");
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 diasTV.setVisibility(diasTV.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -154,6 +184,7 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO mostrar resultado del cálculo
+                //TODO HACER CALCULO DESPUES PORQUE SINO DIEGO ME RETA
                 hastaElLL.setVisibility(hastaElLL.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
