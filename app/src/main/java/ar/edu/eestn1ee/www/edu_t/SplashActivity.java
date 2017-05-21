@@ -16,6 +16,7 @@ public class SplashActivity extends Activity {
         //TODO listo inicializar J-time
         JodaTimeAndroid.init(this);
 
+
         setContentView(R.layout.activity_splash);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

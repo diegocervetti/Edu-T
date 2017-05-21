@@ -1,16 +1,20 @@
 package ar.edu.eestn1ee.www.edu_t;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class MenuPrincipal extends AppCompatActivity {
 
@@ -32,6 +36,12 @@ public class MenuPrincipal extends AppCompatActivity {
     private TextView calendarioTituloTV;
     private TextView diasTituloTV;
     private TextView calculadoraTituloTV;
+    //Selected dia
+    private int selectedDate,selectedMonth,selectedYear;
+    //Reserva datepicker y calendar
+    DatePicker datePicker;
+    Calendar calendar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,24 +87,59 @@ public class MenuPrincipal extends AppCompatActivity {
         // Escuchamos los clics sobre los íconos
         botonCalendario = (ImageButton) findViewById(R.id.botonCalendario);
         calendarioTituloTV = (TextView) findViewById(R.id.calendarioTituloTV);
+        //Se crea el date picker
+        final Dialog dialog = new Dialog(MenuPrincipal.this);
+        dialog.setContentView(R.layout.datepickerview);
+        dialog.setTitle("");
+
+        datePicker = (DatePicker) dialog.findViewById(R.id.datePicker1);
+        calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        selectedDate=calendar.get(Calendar.DAY_OF_MONTH);
+        selectedMonth=calendar.get(Calendar.MONTH);
+        selectedYear=calendar.get(Calendar.YEAR);
         botonCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO traer date picker
+
+                //Se trae date picker
+
+                datePicker.init(selectedYear,selectedMonth, selectedDate, new DatePicker.OnDateChangedListener() {
+
+                    @Override
+                    public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
+
+                            TextView tv = (TextView) findViewById(R.id.fechaDesdeIV);
+
+                            String stringOfDate = day + "/" + month + "/" + year;
+                            tv.setText(stringOfDate);
+                            dialog.dismiss();
+
+                        selectedDate=day;
+                        selectedMonth=month;
+                        selectedYear=year;
+                    } });
+                dialog.show();
+
+
+
+
+                //en construccion
+
                 desdeElLL.setVisibility(desdeElLL.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarCalendarioLL.setLayoutParams(paramTemp);
                 calendarioTituloTV.setVisibility(calendarioTituloTV.GONE);
             }
-        });
+        } );
 
         botonCantidadDias = (ImageButton) findViewById(R.id.botonCantidadDias);
         diasTituloTV = (TextView) findViewById(R.id.diasTituloTV);
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO traer selector de dias
+                //TODO traer cantidad de dias
                 diasTV.setVisibility(diasTV.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -119,6 +164,7 @@ public class MenuPrincipal extends AppCompatActivity {
         });
 
     }
+    ////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////
     // Menu de los tres puntos con opciones
@@ -146,3 +192,5 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
 }
+
+
