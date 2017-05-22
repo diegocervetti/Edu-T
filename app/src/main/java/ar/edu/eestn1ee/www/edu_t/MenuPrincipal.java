@@ -3,8 +3,6 @@ package ar.edu.eestn1ee.www.edu_t;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +43,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private DatePicker datePicker;
     private Calendar calendar;
     //view de cantidad dias
-    private TextView cantidadDiasTV;
+    private NumberPicker cantidadDiasNP;
     //Dialog
     private Dialog dialog, dialog2;
     //sumador dia
@@ -134,9 +133,11 @@ public class MenuPrincipal extends AppCompatActivity {
 
         dialog2 = new Dialog(MenuPrincipal.this);
         dialog2.setContentView(R.layout.cantidadview);
-        dialog2.setTitle("");
-        cantidadDiasTV = (TextView) dialog2.findViewById(R.id.cantidadDias);
 
+        cantidadDiasNP = (NumberPicker) dialog2.findViewById(R.id.numberPicker);
+        cantidadDiasNP.setMaxValue(365);
+        cantidadDiasNP.setMinValue(1);
+        cantidadDiasNP.setWrapSelectorWheel(true);
 
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,29 +201,13 @@ public class MenuPrincipal extends AppCompatActivity {
     public void dialogcantidad(){
         dialog2.show();
 
-        cantidadDiasTV.addTextChangedListener(new TextWatcher() {
+        cantidadDiasNP.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                diasTV.setText(cantidadDiasTV.getText() + " Dias");
-                try {
-                    cantidad = Integer.parseInt(cantidadDiasTV.getText().toString());
-                }catch(Exception ex){
-                    cantidad = 0;
-                }
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                diasTV.setText(cantidadDiasNP.getValue() + " Dias");
             }
         });
+        cantidadDiasNP.setOnLongPressUpdateInterval(90);
     }
     /////////////////////////////////////////////////
     // Menu de los tres puntos con opciones

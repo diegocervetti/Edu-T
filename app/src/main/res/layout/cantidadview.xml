@@ -4,13 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/cantidadDias"
+    <NumberPicker
+        android:id="@+id/numberPicker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Ingrese Cantidad de Dias"
-        android:inputType="number"
-        android:visibility="visible"
-        tools:focusable="true" />
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>
