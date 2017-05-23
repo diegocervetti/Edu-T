@@ -112,17 +112,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
                 //Se trae date picker
                 dialogfecha();
-                desdeElLL.setVisibility(desdeElLL.VISIBLE);
-                desdeElLL.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogfecha();
-                    }
-                });
-                ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
-                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                centrarCalendarioLL.setLayoutParams(paramTemp);
-                calendarioTituloTV.setVisibility(calendarioTituloTV.GONE);
+
             }
         } );
 
@@ -146,17 +136,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
                 dialogcantidad();
                 //////////////////////////////////////////////////
-                diasTV.setVisibility(diasTV.VISIBLE);
-                diasTV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogcantidad();
-                    }
-                });
-                ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
-                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                centrarDiasLL.setLayoutParams(paramTemp);
-                diasTituloTV.setVisibility(diasTituloTV.GONE);
+
             }
         });
 
@@ -194,6 +174,17 @@ public class MenuPrincipal extends AppCompatActivity {
                 selectedDate=day;
                 selectedMonth=month;
                 selectedYear=year;
+                desdeElLL.setVisibility(desdeElLL.VISIBLE);
+                desdeElLL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogfecha();
+                    }
+                });
+                ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
+                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                centrarCalendarioLL.setLayoutParams(paramTemp);
+                calendarioTituloTV.setVisibility(calendarioTituloTV.GONE);
             } });
         dialog.show();
     }
@@ -205,6 +196,17 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 diasTV.setText(cantidadDiasNP.getValue() + " Dias");
+                diasTV.setVisibility(diasTV.VISIBLE);
+                diasTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogcantidad();
+                    }
+                });
+                ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
+                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                centrarDiasLL.setLayoutParams(paramTemp);
+                diasTituloTV.setVisibility(diasTituloTV.GONE);
             }
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
