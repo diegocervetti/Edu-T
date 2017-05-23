@@ -128,7 +128,7 @@ public class MenuPrincipal extends AppCompatActivity {
         cantidadDiasNP.setMaxValue(365);
         cantidadDiasNP.setMinValue(1);
         cantidadDiasNP.setWrapSelectorWheel(true);
-
+        cantidadDiasNP.setOnLongPressUpdateInterval(300);
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +147,7 @@ public class MenuPrincipal extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO mostrar resultado del cálculo
                 //TODO HACER CALCULO DESPUES PORQUE SINO DIEGO ME RETA
+                Toast.makeText(MenuPrincipal.this, "CALCULO W.I.P", Toast.LENGTH_SHORT).show();
                 hastaElLL.setVisibility(hastaElLL.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
