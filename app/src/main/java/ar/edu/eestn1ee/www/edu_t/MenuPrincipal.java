@@ -271,7 +271,6 @@ public class MenuPrincipal extends AppCompatActivity {
             fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue());
             fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
             if(checkBox.isChecked() == true) {
-
                 diasHabiles(fechaInicial, fechaFinal);
             }
 
