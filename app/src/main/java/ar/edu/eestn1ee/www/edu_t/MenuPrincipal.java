@@ -60,7 +60,7 @@ public class MenuPrincipal extends AppCompatActivity {
     //DateTime
     private DateTime fechaSuma,fechaSumada;
     //Comprobador
-     private Boolean comprobador1,comprobador2=false;
+     private Boolean comprobador1=false,comprobador2=false;
     //Checkbox
      private CheckBox checkBox;
     //Calendarios
@@ -82,18 +82,17 @@ public class MenuPrincipal extends AppCompatActivity {
 
         //Ocultamos Views cuando no hay nada calculado
         desdeElLL = (LinearLayout) findViewById(R.id.desdeElLL);
-        desdeElLL.setVisibility(desdeElLL.GONE);
+        desdeElLL.setVisibility(View.GONE);
         diasTV = (TextView) findViewById(R.id.diasTV);
-        diasTV.setVisibility(diasTV.GONE);
+        diasTV.setVisibility(View.GONE);
         hastaElLL = (LinearLayout) findViewById(R.id.hastaElLL);
-        hastaElLL.setVisibility(hastaElLL.GONE);
+        hastaElLL.setVisibility(View.GONE);
 
         //Centramos Views cuando no hay nada calculado
         centrarCalendarioLL = (LinearLayout) findViewById(R.id.centrarCalendarioLL);
         ViewGroup.LayoutParams parametros = centrarCalendarioLL.getLayoutParams(); //Traemos los params del View para cambiarlos
         parametros.width = ViewGroup.LayoutParams.MATCH_PARENT; //Pasamos a Match parent para poder centrarlo en la página
         centrarCalendarioLL.setLayoutParams(parametros);
-
 
         //Centramos Cantidad de Días
         centrarDiasLL = (LinearLayout) findViewById(R.id.centrarDiasLL);
@@ -176,10 +175,10 @@ public class MenuPrincipal extends AppCompatActivity {
                 centrarFinLicenciaLL.setLayoutParams(paramTemp);
                 calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
 */
-                if(comprobador1 == false){
+                if(!comprobador1){
                     Toast.makeText(MenuPrincipal.this, "Seleccione La fecha", Toast.LENGTH_SHORT).show();
                 }
-                if(comprobador2 == false){
+                if(!comprobador2){
                     Toast.makeText(MenuPrincipal.this, "Seleccione La Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -213,7 +212,7 @@ public class MenuPrincipal extends AppCompatActivity {
                 selectedYear=year;
                 comprobador1 = true;
                 comprobar();
-                desdeElLL.setVisibility(desdeElLL.VISIBLE);
+                desdeElLL.setVisibility(View.VISIBLE);
                 desdeElLL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -223,7 +222,7 @@ public class MenuPrincipal extends AppCompatActivity {
                 ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarCalendarioLL.setLayoutParams(paramTemp);
-                calendarioTituloTV.setVisibility(calendarioTituloTV.GONE);
+                calendarioTituloTV.setVisibility(View.GONE);
             } });
         dialog.show();
     }
@@ -235,7 +234,7 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 diasTV.setText(cantidadDiasNP.getValue() + " Días");
-                diasTV.setVisibility(diasTV.VISIBLE);
+                diasTV.setVisibility(View.VISIBLE);
                 diasTV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -249,7 +248,7 @@ public class MenuPrincipal extends AppCompatActivity {
                 ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarDiasLL.setLayoutParams(paramTemp);
-                diasTituloTV.setVisibility(diasTituloTV.GONE);
+                diasTituloTV.setVisibility(View.GONE);
             }
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
@@ -258,11 +257,11 @@ public class MenuPrincipal extends AppCompatActivity {
     public void comprobar(){
 
         if(comprobador1 && comprobador2){
-            hastaElLL.setVisibility(hastaElLL.VISIBLE);
+            hastaElLL.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
             paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             centrarFinLicenciaLL.setLayoutParams(paramTemp);
-            calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
+            calculadoraTituloTV.setVisibility(View.GONE);
 
             fechaInicial.set(selectedYear,selectedMonth,selectedDate-1);
             //se crea dateTime
@@ -270,7 +269,7 @@ public class MenuPrincipal extends AppCompatActivity {
             //Agregar cantidad dias
             fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue());
             fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
-            if(checkBox.isChecked() == true) {
+            if(checkBox.isChecked()) {
                 diasHabiles(fechaInicial, fechaFinal);
             }
 
