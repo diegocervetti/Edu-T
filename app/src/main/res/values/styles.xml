@@ -13,4 +13,10 @@
         <item name="android:textSize">26sp</item>
     </style>
 
+    <!-- Estilo para el num picker -->
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
 </resources>
