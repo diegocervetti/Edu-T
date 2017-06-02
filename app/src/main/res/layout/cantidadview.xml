@@ -6,8 +6,10 @@
 
     <NumberPicker
         android:id="@+id/numberPicker"
-        android:layout_width="125dp"
-        android:layout_height="250dp" />
+        android:theme="@style/AppTheme.Picker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="64dp"/>/>
 
 
 </LinearLayout>

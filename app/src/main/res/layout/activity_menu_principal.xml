@@ -154,15 +154,17 @@
                 android:text="Hasta el"
                 android:textAlignment="center"/>
             <TextView
+                android:id="@+id/resultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="26sp"
                 android:text="Sin Definir"
                 android:textAlignment="center"/>
             <CheckBox
+                android:id="@+id/checkBoxDias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:text="días hábiles"/>
         </LinearLayout>
 

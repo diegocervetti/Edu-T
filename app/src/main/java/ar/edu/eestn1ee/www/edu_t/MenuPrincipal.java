@@ -8,14 +8,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.joda.time.DateTime;
+
+
 
 import java.util.Calendar;
+import java.util.Locale;
+
+import static java.util.Calendar.DATE;
 
 public class MenuPrincipal extends AppCompatActivity {
 
@@ -23,6 +31,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private LinearLayout desdeElLL; //Calendario
     private TextView diasTV; //Cantidad de días ingresado por el usuario
     private LinearLayout hastaElLL; //ViewGroup con fecha resultado y checkbox
+    private  TextView resultadoTV;
     //Linear Layouts y Views qe se centran cuando nunca se calculó una licencia
     private LinearLayout centrarCalendarioLL;
     private LinearLayout centrarDiasLL;
@@ -48,12 +57,22 @@ public class MenuPrincipal extends AppCompatActivity {
     private Dialog dialog, dialog2;
     //sumador dia
     private int cantidad;
-
+    //DateTime
+    private DateTime fechaSuma,fechaSumada;
+    //Comprobador
+     private Boolean comprobador1,comprobador2=false;
+    //Checkbox
+     private CheckBox checkBox;
+    //Calendarios
+    Calendar fechaInicial = Calendar.getInstance(),fechaFinal= Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
+
+
+
 
         //Quitamos margen al rootView
         rootLL = (LinearLayout)findViewById(R.id.rootLL);
@@ -82,6 +101,8 @@ public class MenuPrincipal extends AppCompatActivity {
         parametros.width = ViewGroup.LayoutParams.MATCH_PARENT;
         centrarDiasLL.setLayoutParams(parametros);
 
+        //TextView del resultado
+        resultadoTV = (TextView) findViewById(R.id.resultado);
 
         //Centramos Fin de Licencia
         centrarFinLicenciaLL = (LinearLayout) findViewById(R.id.centrarFinLicenciaLL);
@@ -94,6 +115,7 @@ public class MenuPrincipal extends AppCompatActivity {
         // Escuchamos los clics sobre los íconos
         botonCalendario = (ImageButton) findViewById(R.id.botonCalendario);
         calendarioTituloTV = (TextView) findViewById(R.id.calendarioTituloTV);
+
         //dialog fecha
         dialog = new Dialog(MenuPrincipal.this);
         dialog.setContentView(R.layout.datepickerview);
@@ -118,6 +140,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
         botonCantidadDias = (ImageButton) findViewById(R.id.botonCantidadDias);
         diasTituloTV = (TextView) findViewById(R.id.diasTituloTV);
+
 
         //Se crea un dialog para el input del numero
 
@@ -145,15 +168,28 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCalculadora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO mostrar resultado del cálculo
-                //TODO HACER CALCULO DESPUES PORQUE SINO DIEGO ME RETA
+                /*
                 Toast.makeText(MenuPrincipal.this, "CALCULO W.I.P", Toast.LENGTH_SHORT).show();
                 hastaElLL.setVisibility(hastaElLL.VISIBLE);
                 ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarFinLicenciaLL.setLayoutParams(paramTemp);
                 calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
-
+*/
+                if(comprobador1 == false){
+                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha", Toast.LENGTH_SHORT).show();
+                }
+                if(comprobador2 == false){
+                    Toast.makeText(MenuPrincipal.this, "Seleccione La Cantidad de Días", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //Checkbox de dias habiles
+        checkBox = (CheckBox) findViewById(R.id.checkBoxDias);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                comprobar();
             }
         });
 
@@ -168,13 +204,15 @@ public class MenuPrincipal extends AppCompatActivity {
 
                 TextView tv = (TextView) findViewById(R.id.fechaDesdeIV);
 
-                String stringOfDate = day + "/" + month + "/" + year;
+                String stringOfDate = day + "/" + (month+1) + "/" + year;
                 tv.setText(stringOfDate);
                 dialog.dismiss();
 
                 selectedDate=day;
                 selectedMonth=month;
                 selectedYear=year;
+                comprobador1 = true;
+                comprobar();
                 desdeElLL.setVisibility(desdeElLL.VISIBLE);
                 desdeElLL.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -196,7 +234,7 @@ public class MenuPrincipal extends AppCompatActivity {
         cantidadDiasNP.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                diasTV.setText(cantidadDiasNP.getValue() + " Dias");
+                diasTV.setText(cantidadDiasNP.getValue() + " Días");
                 diasTV.setVisibility(diasTV.VISIBLE);
                 diasTV.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -204,6 +242,10 @@ public class MenuPrincipal extends AppCompatActivity {
                         dialogcantidad();
                     }
                 });
+
+                comprobador2 = true;
+                comprobar();
+
                 ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarDiasLL.setLayoutParams(paramTemp);
@@ -212,12 +254,58 @@ public class MenuPrincipal extends AppCompatActivity {
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
     }
+    //Comprobar
+    public void comprobar(){
+
+        if(comprobador1 && comprobador2){
+            hastaElLL.setVisibility(hastaElLL.VISIBLE);
+            ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
+            paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            centrarFinLicenciaLL.setLayoutParams(paramTemp);
+            calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
+
+            fechaInicial.set(selectedYear,selectedMonth,selectedDate-1);
+            //se crea dateTime
+            fechaSumada = new DateTime(fechaInicial);
+            //Agregar cantidad dias
+            fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue());
+            fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
+            if(checkBox.isChecked() == true) {
+
+                diasHabiles(fechaInicial, fechaFinal);
+            }
+
+                resultadoTV.setText(fechaSumada.getDayOfMonth() + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
+
+        }
+    }
+
+    //CALCULAR FINES DE SEMANA
+
+    public int diasHabiles(Calendar fechaInicial, Calendar fechaFinal) {
+        int diffDays = 0;
+
+        //mientras la fecha inicial sea menor o igual que la fecha final se cuentan los dias
+        while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
+
+            if (fechaInicial.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || fechaInicial.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                //se aumentan los dias de diferencia entre min y max
+                diffDays++;
+                fechaSumada = fechaSumada.plusDays(1);
+                fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
+            }
+            //se suma 1 dia para hacer la validacion del siguiente dia.
+            fechaInicial.add(DATE, 1);
+        }
+        return diffDays;
+    }
     /////////////////////////////////////////////////
     // Menu de los tres puntos con opciones
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main , menu);
+
         return true;
     }
 
