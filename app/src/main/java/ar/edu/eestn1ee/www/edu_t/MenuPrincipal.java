@@ -271,6 +271,7 @@ public class MenuPrincipal extends AppCompatActivity {
             fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
             if(checkBox.isChecked()) {
                 diasHabiles(fechaInicial, fechaFinal);
+
             }
 
                 resultadoTV.setText(fechaSumada.getDayOfMonth() + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
