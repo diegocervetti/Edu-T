@@ -130,9 +130,9 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               // Toast.makeText(MenuPrincipal.this, "Me quiero ir :v", Toast.LENGTH_SHORT).show();
                 //Se trae date picker
-                dialogfecha();
+                   dialogfecha();
 
             }
         } );
@@ -174,11 +174,11 @@ public class MenuPrincipal extends AppCompatActivity {
                 paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 centrarFinLicenciaLL.setLayoutParams(paramTemp);
                 calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
-*/
-                if(!comprobador1){
+*/               if(!comprobador1 && !comprobador2){
+                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha y la Cantidad de Días", Toast.LENGTH_SHORT).show();
+                }else if(!comprobador1){
                     Toast.makeText(MenuPrincipal.this, "Seleccione La fecha", Toast.LENGTH_SHORT).show();
-                }
-                if(!comprobador2){
+                }else if(!comprobador2){
                     Toast.makeText(MenuPrincipal.this, "Seleccione La Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -263,9 +263,10 @@ public class MenuPrincipal extends AppCompatActivity {
             centrarFinLicenciaLL.setLayoutParams(paramTemp);
             calculadoraTituloTV.setVisibility(View.GONE);
 
-            fechaInicial.set(selectedYear,selectedMonth,selectedDate-1);
+            fechaInicial.set(selectedYear,selectedMonth,selectedDate);
             //se crea dateTime
             fechaSumada = new DateTime(fechaInicial);
+
             //Agregar cantidad dias
             fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue());
             fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
@@ -274,7 +275,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
             }
 
-                resultadoTV.setText(fechaSumada.getDayOfMonth() + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
+                resultadoTV.setText((fechaSumada.getDayOfMonth()-1) + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
 
         }
     }
