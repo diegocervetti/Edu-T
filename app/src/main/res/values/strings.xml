@@ -1,6 +1,25 @@
 <resources>
     <string name="app_name">Edu-T</string>
+    <!-- textos pantalla Acerca de... -->
     <string name="contributors">Contribuyen a este proyecto</string>
     <string name="profe">Diego Cervetti</string>
     <string name="acostaagustin">Agustín Acosta</string>
+
+    <!-- textos pantallas Ayuda -->
+    <string name="siguiente">SIGUIENTE</string>
+    <string name="saltear">SALTEAR</string>
+    <string name="listo">LISTO!</string>
+
+    <string name="pantalla_ayuda_1_titulo">Pantalla uno de la Ayuda</string>
+    <string name="pantalla_ayuda_1_texto">Esta aplicación calcula el día de blah blah blah</string>
+
+    <string name="pantalla_ayuda_2_titulo">Pantalla dos de la Ayuda</string>
+    <string name="pantalla_ayuda_2_texto">Blah blah blah de la pantalla dos</string>
+
+    <string name="pantalla_ayuda_3_titulo">Pantalla tres de la Ayuda</string>
+    <string name="pantalla_ayuda_3_texto">Blah blah blah de la pantalla tres</string>
+
+    <string name="pantalla_ayuda_4_titulo">Pantalla cuatro de la Ayuda</string>
+    <string name="pantalla_ayuda_4_texto">Blah blah blah de la pantalla cuatro</string>
+
 </resources>
