@@ -10,31 +10,55 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 public class SplashActivity extends Activity {
 
+    private Preferencias preferencias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO listo inicializar J-time
         JodaTimeAndroid.init(this);
 
 
         setContentView(R.layout.activity_splash);
 
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        irAlMenu();
-    }
 
-    public void irAlMenu() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                chequearDondeIr();
+            }
+        }, 1500);
 
+
+    }
+
+    public void chequearDondeIr(){
+        //TODO no funciona bien el shared preferences manager
+        // problema siempre muestra la pantalla de ayuda, la idea es que solo la muestre la primera vez que se usa la App...
+
+        // Es la primera vez que se usa la App? --> Mostramos Intro Ayuda
+        preferencias = new Preferencias(this);
+        if (!preferencias.esPrimerUso()) {
+            irAlMenu();
+        } else {
+            irAyuda();
+        }
+    }
+
+    public void irAlMenu() {
+                preferencias.setPrimerUso(false);
                 Intent i = new Intent(SplashActivity.this, MenuPrincipal.class);
                 SplashActivity.this.startActivity(i);
                 SplashActivity.this.finish();
-            }
-        }, 1500);
     }
+
+    public void irAyuda() {
+                Intent i = new Intent(SplashActivity.this, AyudaActivity.class);
+                SplashActivity.this.startActivity(i);
+                SplashActivity.this.finish();
+            }
 
 }

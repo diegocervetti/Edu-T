@@ -1,6 +1,7 @@
 package ar.edu.eestn1ee.www.edu_t;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -142,7 +143,6 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
         //Se crea un dialog para el input del numero
-
         dialog2 = new Dialog(MenuPrincipal.this);
         dialog2.setContentView(R.layout.cantidadview);
 
@@ -154,8 +154,7 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Preguntar a Diego como tendria que verse el input, mejorar diseño
-
+                //TODO hacer que el boton cerrar funcione cerrando el dialogo
                 dialogcantidad();
                 //////////////////////////////////////////////////
 
@@ -175,15 +174,15 @@ public class MenuPrincipal extends AppCompatActivity {
                 centrarFinLicenciaLL.setLayoutParams(paramTemp);
                 calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
 */               if(!comprobador1 && !comprobador2){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha y la Cantidad de Días", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio y\nla Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }else if(!comprobador1){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio", Toast.LENGTH_SHORT).show();
                 }else if(!comprobador2){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La Cantidad de Días", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        //Checkbox de dias habiles
+        //Checkbox de dias {hábiles
         checkBox = (CheckBox) findViewById(R.id.checkBoxDias);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -281,7 +280,6 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     //CALCULAR FINES DE SEMANA
-
     public int diasHabiles(Calendar fechaInicial, Calendar fechaFinal) {
         int diffDays = 0;
 
@@ -313,7 +311,8 @@ public class MenuPrincipal extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.Ayuda:
-                Toast.makeText(this,"AYUDA", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MenuPrincipal.this, AyudaActivity.class);
+                MenuPrincipal.this.startActivity(i);
                 return true;
 
             case R.id.Acerca:

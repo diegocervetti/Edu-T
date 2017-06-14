@@ -10,18 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AyudaActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MenuPrincipal"
             android:screenOrientation="portrait" />
-        <activity android:name=".SplashActivity"></activity>
+
+        <activity
+            android:name=".AyudaActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,20 +1,21 @@
 package ar.edu.eestn1ee.www.edu_t;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AyudaActivity extends AppCompatActivity {
+public class AyudaActivity extends Activity {
     private ViewPager viewPager ;
     private propioViewPagerAdapter elPagerAdapter;
     private LinearLayout puntos ;
@@ -28,6 +29,8 @@ public class AyudaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ayuda);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         puntos = (LinearLayout) findViewById(R.id.puntos);
