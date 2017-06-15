@@ -13,7 +13,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO listo inicializar J-time
+
         JodaTimeAndroid.init(this);
 
 

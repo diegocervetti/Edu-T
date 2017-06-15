@@ -64,7 +64,9 @@ public class MenuPrincipal extends AppCompatActivity {
     //Checkbox
      private CheckBox checkBox;
     //Calendarios
-    Calendar fechaInicial = Calendar.getInstance(),fechaFinal= Calendar.getInstance();
+    private Calendar fechaInicial = Calendar.getInstance(),fechaFinal= Calendar.getInstance();
+    //Dia guardado
+    private int diaGuardado = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +156,7 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Preguntar a Diego como tendria que verse el input, mejorar diseño
+
 
                 dialogcantidad();
                 //////////////////////////////////////////////////
@@ -229,29 +231,40 @@ public class MenuPrincipal extends AppCompatActivity {
     // Dialog 2
     public void dialogcantidad(){
         dialog2.show();
-
+        cantidadDiasNP.setValue(diaGuardado);
+        ActualizarCantidadDias();
         cantidadDiasNP.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                diasTV.setText(cantidadDiasNP.getValue() + " Días");
-                diasTV.setVisibility(View.VISIBLE);
-                diasTV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogcantidad();
-                    }
-                });
-
-                comprobador2 = true;
-                comprobar();
-
-                ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
-                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                centrarDiasLL.setLayoutParams(paramTemp);
-                diasTituloTV.setVisibility(View.GONE);
+                diaGuardado = newVal;
+                ActualizarCantidadDias();
             }
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
+    }
+    //Actualizar cantidad Dias
+    public void ActualizarCantidadDias(){
+        if(cantidadDiasNP.getValue() == 1){
+            diasTV.setText("1 Día");
+        }else{
+            diasTV.setText(cantidadDiasNP.getValue() + " Días");
+        }
+        diasTV.setVisibility(View.VISIBLE);
+        diasTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogcantidad();
+            }
+        });
+
+        comprobador2 = true;
+        comprobar();
+
+        ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
+        paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        centrarDiasLL.setLayoutParams(paramTemp);
+        diasTituloTV.setVisibility(View.GONE);
+
     }
     //Comprobar
     public void comprobar(){
