@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- Colores para la App en general -->
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#455A64</color>
+    <color name="colorAccent">#c13e3e</color>
+
+    <color name="colorPrimaryLight">#CFD8DC</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#212121</color>
+
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
+
+
+    <!-- Colores para las pantallas de Ayuda-->
+    <color name="ayuda_fondo1">#c13e3e</color>
+    <color name="ayuda_fondo2">#20d2bb</color>
+    <color name="ayuda_fondo3">#3395ff</color>
+    <color name="ayuda_fondo4">#49c75e</color>
+
+    <color name="punto_activo">#ded8d8</color>
+    <color name="punto_inactivo">#969595</color>
+
+
 </resources>

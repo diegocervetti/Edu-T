@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/rootLL"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ar.edu.eestn1ee.www.edu_t.MenuPrincipal"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp">
+
+    <!-- Layout Calendario -->
+    <LinearLayout
+        android:id="@+id/calendarioLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="left">
+    <!-- Calendario || Icono + Texto -->
+    <LinearLayout
+        android:id="@+id/centrarCalendarioLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/botonCalendario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calendario"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:selectableItemBackground"/>
+        <TextView
+            android:id="@+id/calendarioTituloTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Inicio Licencia"
+            android:textAlignment="center" />
+    </LinearLayout>
+    <!-- Calendario || Desde el + Fecha Resultado -->
+    <LinearLayout
+        android:id="@+id/desdeElLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp">
+        <TextView
+            android:id="@+id/desdeIV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Desde el"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/fechaDesdeIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:text="01/01/2000"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Layout Dias -->
+    <LinearLayout
+        android:id="@+id/diasLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="left"
+        android:layout_marginTop="48dp">
+        <LinearLayout
+            android:id="@+id/centrarDiasLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <!-- Dias || Icono + Texto -->
+        <ImageButton
+            android:id="@+id/botonCantidadDias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dias"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:selectableItemBackground"/>
+        <TextView
+            android:id="@+id/diasTituloTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Cantidad Días"
+            android:textAlignment="center"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/diasTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:text="Sin Definir"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+    <!-- Layout Calculadora -->
+    <LinearLayout
+        android:id="@+id/calculadoraLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="left"
+        android:gravity="center_vertical"
+        android:layout_marginTop="48dp">
+        <!-- Calculadora || Icono + Texto -->
+        <LinearLayout
+            android:id="@+id/centrarFinLicenciaLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/botonCalculadora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calculadora"
+                android:layout_gravity="center"
+                android:background="?android:selectableItemBackground"/>
+            <TextView
+                android:id="@+id/calculadoraTituloTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Fin Licencia"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <!-- Calculadora || Hasta el + Fecha Resultado -->
+        <LinearLayout
+            android:id="@+id/hastaElLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Hasta el"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/resultado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:text="Sin Definir"
+                android:textAlignment="center"/>
+            <CheckBox
+                android:id="@+id/checkBoxDias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="Sin Fin de Semana"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
