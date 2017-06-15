@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
+
 import net.danlew.android.joda.JodaTimeAndroid;
 
 public class SplashActivity extends Activity {
 
     private Preferencias preferencias;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
