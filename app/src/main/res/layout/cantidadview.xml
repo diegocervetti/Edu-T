@@ -22,12 +22,12 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/btnCerrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textSize="12sp"
-            android:text="CERRAR"
-            android:onClick="cerrarDialogo"/>
+            android:text="CERRAR"/>
     </LinearLayout>
 
 </LinearLayout>

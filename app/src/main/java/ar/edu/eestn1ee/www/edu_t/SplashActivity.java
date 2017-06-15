@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -41,7 +42,7 @@ public class SplashActivity extends Activity {
 
         // Es la primera vez que se usa la App? --> Mostramos Intro Ayuda
         preferencias = new Preferencias(this);
-        if (!preferencias.esPrimerUso()) {
+        if (preferencias.esPrimerUso().equals("SI") ) {
             irAlMenu();
         } else {
             irAyuda();
@@ -49,13 +50,13 @@ public class SplashActivity extends Activity {
     }
 
     public void irAlMenu() {
-                preferencias.setPrimerUso(false);
                 Intent i = new Intent(SplashActivity.this, MenuPrincipal.class);
                 SplashActivity.this.startActivity(i);
                 SplashActivity.this.finish();
     }
 
     public void irAyuda() {
+                preferencias.setPrimerUso("SI");
                 Intent i = new Intent(SplashActivity.this, AyudaActivity.class);
                 SplashActivity.this.startActivity(i);
                 SplashActivity.this.finish();

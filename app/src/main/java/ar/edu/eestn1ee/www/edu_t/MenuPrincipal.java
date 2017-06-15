@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -54,6 +55,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Calendar calendar;
     //view de cantidad dias
     private NumberPicker cantidadDiasNP;
+    private Button botonCerrar;
     //Dialog
     private Dialog dialog, dialog2;
     //sumador dia
@@ -61,7 +63,7 @@ public class MenuPrincipal extends AppCompatActivity {
     //DateTime
     private DateTime fechaSuma,fechaSumada;
     //Comprobador
-     private Boolean comprobador1=false,comprobador2=false;
+     private Boolean comprobador1=false, comprobador2=false;
     //Checkbox
      private CheckBox checkBox;
     //Calendarios
@@ -148,16 +150,15 @@ public class MenuPrincipal extends AppCompatActivity {
 
         cantidadDiasNP = (NumberPicker) dialog2.findViewById(R.id.numberPicker);
         cantidadDiasNP.setMaxValue(365);
-        cantidadDiasNP.setMinValue(1);
+        cantidadDiasNP.setMinValue(0);
         cantidadDiasNP.setWrapSelectorWheel(true);
         cantidadDiasNP.setOnLongPressUpdateInterval(300);
+        botonCerrar = (Button) dialog2.findViewById(R.id.btnCerrar);
+
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO hacer que el boton cerrar funcione cerrando el dialogo
                 dialogcantidad();
-                //////////////////////////////////////////////////
-
             }
         });
 
@@ -166,14 +167,7 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCalculadora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Toast.makeText(MenuPrincipal.this, "CALCULO W.I.P", Toast.LENGTH_SHORT).show();
-                hastaElLL.setVisibility(hastaElLL.VISIBLE);
-                ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
-                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                centrarFinLicenciaLL.setLayoutParams(paramTemp);
-                calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
-*/               if(!comprobador1 && !comprobador2){
+               if(!comprobador1 && !comprobador2){
                     Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio y\nla Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }else if(!comprobador1){
                     Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio", Toast.LENGTH_SHORT).show();
@@ -228,6 +222,15 @@ public class MenuPrincipal extends AppCompatActivity {
     // Dialog 2
     public void dialogcantidad(){
         dialog2.show();
+        //Cerramos el dialogo2 si tocamos el botón cerrar
+        botonCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+
+        //
 
         cantidadDiasNP.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -252,9 +255,11 @@ public class MenuPrincipal extends AppCompatActivity {
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
     }
+
+
+
     //Comprobar
     public void comprobar(){
-
         if(comprobador1 && comprobador2){
             hastaElLL.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();

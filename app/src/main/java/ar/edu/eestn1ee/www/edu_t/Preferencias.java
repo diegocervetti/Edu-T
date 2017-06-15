@@ -3,19 +3,20 @@ package ar.edu.eestn1ee.www.edu_t;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class Preferencias {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context contexto;
 
-    // shared pref mode
+    // shareamos de manera privada, no compartimos nada con otra App
     int PRIVATE_MODE = 0;
 
-    // Shared preferences file name
+    // nombre del archivo
     private static final String PREF_NAME = "edu-t-calculo-fecha";
 
-    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String SE_USO = "seUso";
 
     public Preferencias(Context context) {
         this.contexto = context;
@@ -23,12 +24,12 @@ public class Preferencias {
         editor = pref.edit();
     }
 
-    public void setPrimerUso(boolean isFirstTime) {
-        editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
+    public void setPrimerUso(String esPrimerUso) {
+        editor.putString(SE_USO, esPrimerUso);
         editor.commit();
     }
 
-    public boolean esPrimerUso() {
-        return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    public String esPrimerUso() {
+        return pref.getString(SE_USO , "NO");
     }
 }
