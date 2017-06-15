@@ -1,6 +1,7 @@
 package ar.edu.eestn1ee.www.edu_t;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -53,6 +55,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Calendar calendar;
     //view de cantidad dias
     private NumberPicker cantidadDiasNP;
+    private Button botonCerrar;
     //Dialog
     private Dialog dialog, dialog2;
     //sumador dia
@@ -60,13 +63,11 @@ public class MenuPrincipal extends AppCompatActivity {
     //DateTime
     private DateTime fechaSuma,fechaSumada;
     //Comprobador
-     private Boolean comprobador1=false,comprobador2=false;
+     private Boolean comprobador1=false, comprobador2=false;
     //Checkbox
      private CheckBox checkBox;
     //Calendarios
-    private Calendar fechaInicial = Calendar.getInstance(),fechaFinal= Calendar.getInstance();
-    //Dia guardado
-    private int diaGuardado = 1;
+    Calendar fechaInicial = Calendar.getInstance(),fechaFinal= Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,23 +145,20 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
         //Se crea un dialog para el input del numero
-
         dialog2 = new Dialog(MenuPrincipal.this);
         dialog2.setContentView(R.layout.cantidadview);
 
         cantidadDiasNP = (NumberPicker) dialog2.findViewById(R.id.numberPicker);
         cantidadDiasNP.setMaxValue(365);
-        cantidadDiasNP.setMinValue(1);
+        cantidadDiasNP.setMinValue(0);
         cantidadDiasNP.setWrapSelectorWheel(true);
         cantidadDiasNP.setOnLongPressUpdateInterval(300);
+        botonCerrar = (Button) dialog2.findViewById(R.id.btnCerrar);
+
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 dialogcantidad();
-                //////////////////////////////////////////////////
-
             }
         });
 
@@ -169,23 +167,16 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCalculadora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Toast.makeText(MenuPrincipal.this, "CALCULO W.I.P", Toast.LENGTH_SHORT).show();
-                hastaElLL.setVisibility(hastaElLL.VISIBLE);
-                ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
-                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                centrarFinLicenciaLL.setLayoutParams(paramTemp);
-                calculadoraTituloTV.setVisibility(calculadoraTituloTV.GONE);
-*/               if(!comprobador1 && !comprobador2){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha y la Cantidad de Días", Toast.LENGTH_SHORT).show();
+               if(!comprobador1 && !comprobador2){
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio y\nla Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }else if(!comprobador1){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La fecha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Fecha de Inicio", Toast.LENGTH_SHORT).show();
                 }else if(!comprobador2){
-                    Toast.makeText(MenuPrincipal.this, "Seleccione La Cantidad de Días", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuPrincipal.this, "Seleccione la Cantidad de Días", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        //Checkbox de dias habiles
+        //Checkbox de dias {hábiles
         checkBox = (CheckBox) findViewById(R.id.checkBoxDias);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -231,44 +222,44 @@ public class MenuPrincipal extends AppCompatActivity {
     // Dialog 2
     public void dialogcantidad(){
         dialog2.show();
-        cantidadDiasNP.setValue(diaGuardado);
-        ActualizarCantidadDias();
+        //Cerramos el dialogo2 si tocamos el botón cerrar
+        botonCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+
+        //
+
         cantidadDiasNP.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                diaGuardado = newVal;
-                ActualizarCantidadDias();
+                diasTV.setText(cantidadDiasNP.getValue() + " Días");
+                diasTV.setVisibility(View.VISIBLE);
+                diasTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogcantidad();
+                    }
+                });
+
+                comprobador2 = true;
+                comprobar();
+
+                ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
+                paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                centrarDiasLL.setLayoutParams(paramTemp);
+                diasTituloTV.setVisibility(View.GONE);
             }
         });
         cantidadDiasNP.setOnLongPressUpdateInterval(90);
     }
-    //Actualizar cantidad Dias
-    public void ActualizarCantidadDias(){
-        if(cantidadDiasNP.getValue() == 1){
-            diasTV.setText("1 Día");
-        }else{
-            diasTV.setText(cantidadDiasNP.getValue() + " Días");
-        }
-        diasTV.setVisibility(View.VISIBLE);
-        diasTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogcantidad();
-            }
-        });
 
-        comprobador2 = true;
-        comprobar();
 
-        ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
-        paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        centrarDiasLL.setLayoutParams(paramTemp);
-        diasTituloTV.setVisibility(View.GONE);
 
-    }
     //Comprobar
     public void comprobar(){
-
         if(comprobador1 && comprobador2){
             hastaElLL.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
@@ -294,7 +285,6 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     //CALCULAR FINES DE SEMANA
-
     public int diasHabiles(Calendar fechaInicial, Calendar fechaFinal) {
         int diffDays = 0;
 
@@ -326,7 +316,8 @@ public class MenuPrincipal extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.Ayuda:
-                Toast.makeText(this,"AYUDA", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MenuPrincipal.this, AyudaActivity.class);
+                MenuPrincipal.this.startActivity(i);
                 return true;
 
             case R.id.Acerca:
