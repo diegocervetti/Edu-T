@@ -78,7 +78,7 @@
     <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/agustinacosta"
+    android:text="@string/acostaagustin"
     android:textStyle="bold"
     android:textSize="16sp"
     android:textAlignment="center"
