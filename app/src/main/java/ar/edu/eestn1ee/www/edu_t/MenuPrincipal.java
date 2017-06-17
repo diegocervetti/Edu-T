@@ -57,7 +57,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private NumberPicker cantidadDiasNP;
     private Button botonCerrar;
     //Dialog
-    private Dialog dialog, dialog2;
+    private Dialog dialogFecha, dialogCantidadDeDias;
     //sumador dia
     private int cantidad;
     //DateTime
@@ -75,9 +75,6 @@ public class MenuPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
-
-
-
 
         //Quitamos margen al rootView
         rootLL = (LinearLayout)findViewById(R.id.rootLL);
@@ -120,24 +117,28 @@ public class MenuPrincipal extends AppCompatActivity {
         botonCalendario = (ImageButton) findViewById(R.id.botonCalendario);
         calendarioTituloTV = (TextView) findViewById(R.id.calendarioTituloTV);
 
-        //dialog fecha
-        dialog = new Dialog(MenuPrincipal.this);
-        dialog.setContentView(R.layout.datepickerview);
-        dialog.setTitle("");
+        //Se crea el dialogFecha fecha
+        dialogFecha = new Dialog(MenuPrincipal.this);
+        //Se le aplica la view del datepicker
+        dialogFecha.setContentView(R.layout.datepickerview);
+        //Se aplica un titulo vacio
+        dialogFecha.setTitle("");
 
-        datePicker = (DatePicker) dialog.findViewById(R.id.datePicker1);
+        datePicker = (DatePicker) dialogFecha.findViewById(R.id.datePicker1);
+        //Se obtiene una instancia del calendario
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        //Se define cada variable con su tipo de fecha
         selectedDate=calendar.get(Calendar.DAY_OF_MONTH);
         selectedMonth=calendar.get(Calendar.MONTH);
         selectedYear=calendar.get(Calendar.YEAR);
-
+        //Al hacer click en el boton calendario se llama al datepicker
         botonCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(MenuPrincipal.this, "Me quiero ir :v", Toast.LENGTH_SHORT).show();
+
                 //Se trae date picker
-                   dialogfecha();
+                   callDialogFecha();
 
             }
         } );
@@ -146,21 +147,24 @@ public class MenuPrincipal extends AppCompatActivity {
         diasTituloTV = (TextView) findViewById(R.id.diasTituloTV);
 
 
-        //Se crea un dialog para el input del numero
-        dialog2 = new Dialog(MenuPrincipal.this);
-        dialog2.setContentView(R.layout.cantidadview);
+        //Se crea un dialogFecha para el input del numero
+        dialogCantidadDeDias = new Dialog(MenuPrincipal.this);
+        //Se aplica el numberPicker
+        dialogCantidadDeDias.setContentView(R.layout.cantidadview);
 
-        cantidadDiasNP = (NumberPicker) dialog2.findViewById(R.id.numberPicker);
-        cantidadDiasNP.setMaxValue(365);
-        cantidadDiasNP.setMinValue(1);
-        cantidadDiasNP.setWrapSelectorWheel(true);
-        cantidadDiasNP.setOnLongPressUpdateInterval(300);
-        botonCerrar = (Button) dialog2.findViewById(R.id.btnCerrar);
+        cantidadDiasNP = (NumberPicker) dialogCantidadDeDias.findViewById(R.id.numberPicker);
+        cantidadDiasNP.setMaxValue(365);// Valor maximo 1 año
+        cantidadDiasNP.setMinValue(1);//Valor minimo 1 dia
+        cantidadDiasNP.setWrapSelectorWheel(true);//Se puede mover la rueda
+        cantidadDiasNP.setOnLongPressUpdateInterval(300);//Cuando se mantiene presionado se mueve la rueda
 
+        botonCerrar = (Button) dialogCantidadDeDias.findViewById(R.id.btnCerrar);
+
+        //Cuando se hace click se llama al dialogFecha cantidad de dias
         botonCantidadDias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogcantidad();
+                callDialogCantidad();
             }
         });
 
@@ -183,35 +187,37 @@ public class MenuPrincipal extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                comprobar();
+                ComprobarDiaAndCantidadIsSelected();
             }
         });
 
     }
     ////////////////////////////////////////////////////////////////////
     // Dialog
-    public void dialogfecha(){
+    public void callDialogFecha(){
         datePicker.init(selectedYear,selectedMonth, selectedDate, new DatePicker.OnDateChangedListener() {
 
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
 
                 TextView tv = (TextView) findViewById(R.id.fechaDesdeIV);
-
+                //Obtenemos y aplicamos la fecha seleccionada
                 String stringOfDate = day + "/" + (month+1) + "/" + year;
                 tv.setText(stringOfDate);
-                dialog.dismiss();
-
+                dialogFecha.dismiss();
+                //Se guarda los dias seleccionados
                 selectedDate=day;
                 selectedMonth=month;
                 selectedYear=year;
+                //Se activa el comprobador de que se seleccionó el dia
                 comprobador1 = true;
-                comprobar();
+                //Comprueba si ya se seleccionó la cantidad
+                ComprobarDiaAndCantidadIsSelected();
                 desdeElLL.setVisibility(View.VISIBLE);
                 desdeElLL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialogfecha();
+                        callDialogFecha();
                     }
                 });
                 ViewGroup.LayoutParams paramTemp = centrarCalendarioLL.getLayoutParams();
@@ -219,16 +225,16 @@ public class MenuPrincipal extends AppCompatActivity {
                 centrarCalendarioLL.setLayoutParams(paramTemp);
                 calendarioTituloTV.setVisibility(View.GONE);
             } });
-        dialog.show();
+        dialogFecha.show();
     }
     // Dialog 2
-    public void dialogcantidad(){
-        dialog2.show();
+    public void callDialogCantidad(){
+        dialogCantidadDeDias.show();
         //Cerramos el dialogo2 si tocamos el botón cerrar
         botonCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog2.dismiss();
+                dialogCantidadDeDias.dismiss();
             }
         });
 
@@ -250,20 +256,22 @@ public class MenuPrincipal extends AppCompatActivity {
     //Actualizar Cantidad Dia
     public void ActualizarCantidadDias(){
         if(cantidadDiasNP.getValue() == 1){
+            //Si el valor es 1, se pone Día en singular
             diasTV.setText("1 Día");
         }else {
+            //Si el valor no es 1, se pone en plural
             diasTV.setText(cantidadDiasNP.getValue() + " Días");
         }
         diasTV.setVisibility(View.VISIBLE);
         diasTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogcantidad();
+                callDialogCantidad();
             }
         });
-
+        //Activa el comprobador2
         comprobador2 = true;
-        comprobar();
+        ComprobarDiaAndCantidadIsSelected();
 
         ViewGroup.LayoutParams paramTemp = centrarDiasLL.getLayoutParams();
         paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -272,9 +280,11 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
 
-    //Comprobar
-    public void comprobar(){
+    //Comprobar si se selecciono el dia y la cantidad
+    public void ComprobarDiaAndCantidadIsSelected(){
+        //Comprueba si se selecciono el dia y la cantidad
         if(comprobador1 && comprobador2){
+            //Se oculta y centran los view
             hastaElLL.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams paramTemp = centrarFinLicenciaLL.getLayoutParams();
             paramTemp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -282,18 +292,20 @@ public class MenuPrincipal extends AppCompatActivity {
             calculadoraTituloTV.setVisibility(View.GONE);
 
             fechaInicial.set(selectedYear,selectedMonth,selectedDate);
-            //se crea dateTime
+            //Se crea dateTime con la fecha inicial
             fechaSumada = new DateTime(fechaInicial);
 
-            //Agregar cantidad dias
-            fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue());
+            //Agregar cantidad dias restando 1 porque está incluido el dia inicial
+            fechaSumada = fechaSumada.plusDays(cantidadDiasNP.getValue()-1);
+            //Se pasa de JodaTime a Java
             fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
+            //Si se chequea el checkbox, se calcula los dias habiles
             if(checkBox.isChecked()) {
                 diasHabiles(fechaInicial, fechaFinal);
 
             }
-
-                resultadoTV.setText((fechaSumada.getDayOfMonth()-1) + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
+                //Se aplica el la fecha al resultadoTV
+                resultadoTV.setText((fechaSumada.getDayOfMonth()) + "/" + fechaSumada.getMonthOfYear() + "/" + fechaSumada.getYear());
 
         }
     }
@@ -302,16 +314,17 @@ public class MenuPrincipal extends AppCompatActivity {
     public int diasHabiles(Calendar fechaInicial, Calendar fechaFinal) {
         int diffDays = 0;
 
-        //mientras la fecha inicial sea menor o igual que la fecha final se cuentan los dias
+        //Mientras la fecha inicial sea menor o igual que la fecha final se cuentan los dias
         while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
 
             if (fechaInicial.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || fechaInicial.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                //se aumentan los dias de diferencia entre min y max
+                //Se aumentan los dias de diferencia
                 diffDays++;
+                //Se le agrega un dia más, ya que los sabados y domingos no cuentan
                 fechaSumada = fechaSumada.plusDays(1);
                 fechaFinal = fechaSumada.toCalendar(Locale.getDefault());
             }
-            //se suma 1 dia para hacer la validacion del siguiente dia.
+            //Se suma 1 dia para hacer la validacion del siguiente dia.
             fechaInicial.add(DATE, 1);
         }
         return diffDays;
@@ -335,7 +348,9 @@ public class MenuPrincipal extends AppCompatActivity {
                 return true;
 
             case R.id.Acerca:
-                Toast.makeText(this,"ACERCA", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"ACERCA", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,ContributorsActivity.class);
+                this.startActivity(intent);
                 return true;
 
             default:
