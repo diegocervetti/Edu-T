@@ -345,6 +345,7 @@ public class MenuPrincipal extends AppCompatActivity {
             case R.id.Ayuda:
                 Intent i = new Intent(MenuPrincipal.this, AyudaActivity.class);
                 MenuPrincipal.this.startActivity(i);
+                this.finish();
                 return true;
 
             case R.id.Acerca:
