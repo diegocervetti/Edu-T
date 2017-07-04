@@ -349,7 +349,6 @@ public class MenuPrincipal extends AppCompatActivity {
                 return true;
 
             case R.id.Acerca:
-                //Toast.makeText(this,"ACERCA", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,ContributorsActivity.class);
                 this.startActivity(intent);
                 return true;
