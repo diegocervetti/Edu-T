@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/escuelalogo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/escuelalogo"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -24,6 +24,9 @@
 
         <activity
             android:name=".AyudaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContributorsActivity"
             android:screenOrientation="portrait" />
     </application>
 

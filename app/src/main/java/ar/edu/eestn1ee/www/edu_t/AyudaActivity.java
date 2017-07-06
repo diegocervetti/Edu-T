@@ -36,14 +36,14 @@ public class AyudaActivity extends Activity {
         puntos = (LinearLayout) findViewById(R.id.puntos);
         btnSaltear = (Button) findViewById(R.id.btn_saltear);
         btnSiguiente = (Button) findViewById(R.id.btn_siguiente);
-
+        //Se agregan las layour al array de pantallas
         pantallas = new int[]{
                 R.layout.layout_ayuda_pantalla_1,
                 R.layout.layout_ayuda_pantalla_2,
                 R.layout.layout_ayuda_pantalla_3,
                 R.layout.layout_ayuda_pantalla_4
         };
-
+        //Se inicializa en el primer layout que seria pantallas[0]
         agregarPuntos(0);
 
         elPagerAdapter = new propioViewPagerAdapter();
@@ -64,7 +64,7 @@ public class AyudaActivity extends Activity {
                 // última --> intent al menú principal
                 int current = getItem(+1);
                 if (current < pantallas.length) {
-                    // no soy la última pantalla así que paso a la siguiente
+                    //Si no es la ultima pantalla, pasa a la que sigue
                     viewPager.setCurrentItem(current);
                 } else {
                     irMenuPrincipal();
@@ -73,12 +73,12 @@ public class AyudaActivity extends Activity {
         });
     }
 
-// agregamos los puntitos que aparecen en la parte de abajo de la pantalla
+// Agregamos los puntitos que aparecen en la parte de abajo de la pantalla
     private void agregarPuntos(int paginaActual) {
-        puntitos = new TextView[pantallas.length];
-
+        puntitos = new TextView[pantallas.length];//La cantidad de pantallas es la cantidad de puntitos
+        //Remueve todos los puntitos
         puntos.removeAllViews();
-        for (int i = 0; i < puntitos.length; i++) {
+        for (int i = 0; i < puntitos.length; i++) {//Agrega puntitos
             puntitos[i] = new TextView(this);
             puntitos[i].setText(Html.fromHtml("&#8226;"));
             puntitos[i].setTextSize(35);
@@ -86,28 +86,28 @@ public class AyudaActivity extends Activity {
             puntos.addView(puntitos[i]);
         }
 
-        if (puntitos.length > 0)
-            puntitos[paginaActual].setTextColor(getResources().getColor(R.color.punto_activo));
+        if (puntitos.length > 0)//Se comprueba si hay alguna pantalla
+            puntitos[paginaActual].setTextColor(getResources().getColor(R.color.punto_activo));//Se pone otro color para la pagina actual
     }
 
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
 
-    //  seteamos un listener para cuando cambia el viewPager
+    //  Setteamos un listener para cuando cambia el viewPager
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
             agregarPuntos(position);
 
-            // si es la última pantalla hay que cambiar el botón siguiente x listo
+            // Si es la última pantalla hay que cambiar el botón "siguiente" por "listo"
             if (position == pantallas.length - 1) {
-                // es la última pantalla así que acomodamos las visuales de los botones
+                // Si es la última pantalla, acomodamos las visuales de los botones
                 btnSiguiente.setText(getString(R.string.listo));
                 btnSaltear.setVisibility(View.GONE);
             } else {
-                // sigue igual porque hay más pantallas por ver
+                // Sigue igual ya que hay pantallas por ver, o por si se pasa de la ultima pantalla a la anterior
                 btnSiguiente.setText(getString(R.string.siguiente));
                 btnSaltear.setVisibility(View.VISIBLE);
             }
@@ -162,7 +162,9 @@ public class AyudaActivity extends Activity {
     }
 
     public void irMenuPrincipal(){
+        //Se hace un intento para pasar de la pantalla actual al menuPrincipal
         Intent i = new Intent(this, MenuPrincipal.class);
+        //Se inicia el activity del menuPrincipal y se finaliza la actual
         this.startActivity(i);
         this.finish();
     }
