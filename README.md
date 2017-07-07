@@ -15,7 +15,7 @@ Primera App de 7mo. Programación 2017
   -Menú/Acerca de: Acá se le acerca información acerca de los desarroladores de la aplicación.
 
 
-   Ventajas:
+   Ventajas de la aplicación:
   -Interfaz amigable con el usuario
   -Facilidad de acceso
   -Facilidad de uso
