@@ -7,7 +7,7 @@ Primera App de 7mo. Programación 2017
   ¿Cómo funciona?
     Lo primero que se debe hacer es seleccionar el icono del calendario y marcar una fecha de inicio, posteriormente se selecciona el icono de la calculadora y se selecciona la cantidad de dias que va a durar esa licencia. Ademas de eso se debe marcar si la licencia tendrá en cuenta los dias de semana o no. Al realizar esto en una barra inferior se mostrara el resultado del cálculo.
 
-  Opciones
+  Opciones en la aplicación:
   -Calendario: Acá se selecciona el dia de inicio de la licencia.
   -Calculadora: Acá se define cuantos seran los dias de dicha licencia
   -Opcion Sí/no: Acá se define si se tendrá en cuenta los fines de semana en la licencia.
@@ -15,7 +15,7 @@ Primera App de 7mo. Programación 2017
   -Menú/Acerca de: Acá se le acerca información acerca de los desarroladores de la aplicación.
 
 
-   Ventajas
+   Ventajas:
   -Interfaz amigable con el usuario
   -Facilidad de acceso
   -Facilidad de uso
