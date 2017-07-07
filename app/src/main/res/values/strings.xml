@@ -14,16 +14,16 @@
     <string name="saltear">SALTEAR</string>
     <string name="listo">LISTO!</string>
 
-    <string name="pantalla_ayuda_1_titulo">Pantalla uno de la Ayuda</string>
-    <string name="pantalla_ayuda_1_texto">Esta aplicación calcula el día de blah blah blah</string>
+    <string name="pantalla_ayuda_1_titulo">Bienvenidos</string>
+    <string name="pantalla_ayuda_1_texto">Esta es la guía de uso de la aplicación. Pulse siguiente para continuar.</string>
 
-    <string name="pantalla_ayuda_2_titulo">Pantalla dos de la Ayuda</string>
-    <string name="pantalla_ayuda_2_texto">Blah blah blah de la pantalla dos</string>
+    <string name="pantalla_ayuda_2_titulo">Calendario</string>
+    <string name="pantalla_ayuda_2_texto">Presione sobre este botón para seleccionar la fecha inicial de la licencia.</string>
 
-    <string name="pantalla_ayuda_3_titulo">Pantalla tres de la Ayuda</string>
-    <string name="pantalla_ayuda_3_texto">Blah blah blah de la pantalla tres</string>
+    <string name="pantalla_ayuda_3_titulo">Licencia</string>
+    <string name="pantalla_ayuda_3_texto">Presione sobre este botón e ingrese la cantidad de días que durará la misma.</string>
 
-    <string name="pantalla_ayuda_4_titulo">Pantalla cuatro de la Ayuda</string>
-    <string name="pantalla_ayuda_4_texto">Blah blah blah de la pantalla cuatro</string>
+    <string name="pantalla_ayuda_4_titulo">Resultado</string>
+    <string name="pantalla_ayuda_4_texto">Visualiza la fecha final de la licencia. Se puede seleccionar si incluye o no fines de semana (no están contemplados los feriados)</string>
 
 </resources>

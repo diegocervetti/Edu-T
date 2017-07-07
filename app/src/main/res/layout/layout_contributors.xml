@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Estudiantes"
+        android:text="E.E.S.T. Nº1\nde Esteban Echeverría"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textAlignment="center"
@@ -62,15 +62,6 @@
         android:textSize="14sp"
         android:textAlignment="center"
         android:layout_marginTop="6dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profesor"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:layout_marginTop="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
